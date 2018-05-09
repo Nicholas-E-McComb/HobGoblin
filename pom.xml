@@ -39,11 +39,7 @@
       <version>5.2.12.Final</version>
     </dependency>
     <!--Connect to Oracle DB-->
-    <dependency>
-      <groupId>com.oracle</groupId>
-      <artifactId>ojdbc6</artifactId>
-      <version>11.2.0.3</version>
-    </dependency>
+
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
@@ -51,12 +47,6 @@
     </dependency>
   </dependencies>
 
-  <repositories>
-    <repository>
-      <id>codelds</id>
-      <url>https://code.lds.org/nexus/content/groups/main-repo</url>
-    </repository>
-  </repositories>
   <build>
     <finalName>HobGoblin</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
