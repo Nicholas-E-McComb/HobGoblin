@@ -20,10 +20,9 @@ public class LocationTests {
 	static WebDriver wd;
 	@BeforeSuite
 	public void setup() {
+		AddLocationMethods a = new AddLocationMethods();
 		File chrome = new File("src/main/resources/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", chrome.getAbsolutePath());
-        ChromeOptions options = new ChromeOptions();
-	    options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
 		wd = new ChromeDriver();
 		wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		McCombLogin.login(wd);
