@@ -1,5 +1,6 @@
 package com.revature.tests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
+import LocationMethods.AddLocationMethods;
 import LocationMethods.McCombLogin;
 
 public class LocationTests {
@@ -23,7 +25,7 @@ public class LocationTests {
         ChromeOptions options = new ChromeOptions();
 	    options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
 		wd = new ChromeDriver();
-		wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		McCombLogin.login(wd);
 	}
 	
@@ -32,8 +34,23 @@ public class LocationTests {
 		wd.close();
 	}
 	
-	@Test
+	@Test (priority = 1)
 	public void navigationTest() {
 		  assertTrue(LocationMethods.PageMethods.navigateTo(wd).equals("https://dev.assignforce.revaturelabs.com/locations"));
+	}
+	
+	@Test (priority = 2)
+	public void validLocationTest() {
+		assertTrue(AddLocationMethods.addValidLocation(wd));
+	}
+	
+	@Test (priority = 3)
+	public void invalidLocationTest() {
+		assertFalse(AddLocationMethods.addInvalidLocation(wd));
+	}
+	
+	@Test (priority = 3)
+	public void reusedNameTest() {
+		assertTrue(AddLocationMethods.addPrevUsedName(wd));
 	}
 }
