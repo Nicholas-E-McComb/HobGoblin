@@ -13,14 +13,16 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import LocationMethods.AddLocationMethods;
-import LocationMethods.McCombLogin;
+import buildingMethods.AddBuildingMethods;
+import locationMethods.AddLocationMethods;
+import locationMethods.McCombLogin;
 
 public class LocationTests {
 	static WebDriver wd;
 	@BeforeSuite
 	public void setup() {
-		AddLocationMethods a = new AddLocationMethods();
+		AddLocationMethods a = AddLocationMethods.getAddLocInstance();
+		AddBuildingMethods b = AddBuildingMethods.getAddBldgInstance();
 		File chrome = new File("src/main/resources/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", chrome.getAbsolutePath());
 		wd = new ChromeDriver();
@@ -35,21 +37,36 @@ public class LocationTests {
 	
 	@Test (priority = 1)
 	public void navigationTest() {
-		  assertTrue(LocationMethods.PageMethods.navigateTo(wd).equals("https://dev.assignforce.revaturelabs.com/locations"));
+		  assertTrue(locationMethods.PageMethods.navigateTo(wd).equals("https://dev.assignforce.revaturelabs.com/locations"));
 	}
 	
-	@Test (priority = 2)
+	@Test (priority = 2, groups = "location")
 	public void validLocationTest() {
 		assertTrue(AddLocationMethods.addValidLocation(wd));
 	}
 	
-	@Test (priority = 3)
+	@Test (priority = 2, groups = "location")
 	public void invalidLocationTest() {
 		assertFalse(AddLocationMethods.addInvalidLocation(wd));
 	}
 	
-	@Test (priority = 3)
+	@Test (priority = 2, groups = "location")
 	public void reusedNameTest() {
 		assertTrue(AddLocationMethods.addPrevUsedName(wd));
+	}
+	
+	@Test (priority = 3, groups = "building")
+	public void validBuildingTest() {
+		assertTrue(AddBuildingMethods.addValidBuilding(wd));
+	}
+	
+	@Test (priority = 4, groups = "building")
+	public void invalidBuildingTest() {
+		assertFalse(AddBuildingMethods.addValidBuilding(wd));
+	}
+	
+	@Test(priority = 5, groups = "building")
+	public void reusedBuildingTest() {
+		assertTrue(AddBuildingMethods.readdBuilding(wd));
 	}
 }

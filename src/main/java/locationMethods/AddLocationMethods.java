@@ -1,4 +1,4 @@
-package LocationMethods;
+package locationMethods;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +12,9 @@ import org.openqa.selenium.WebElement;
 
 public class AddLocationMethods {
 	private static Properties prop = new Properties();
+	private static AddLocationMethods a = null;
 
-	public AddLocationMethods() {
+	private AddLocationMethods() {
 		super();
 		InputStream locProps = AddLocationMethods.class.getClassLoader()
 				.getResourceAsStream("location.properties");
@@ -22,6 +23,13 @@ public class AddLocationMethods {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static AddLocationMethods getAddLocInstance() {
+		if(a==null) {
+			a = new AddLocationMethods();
+		}
+		return a;
 	}
 	
 	public static Boolean addValidLocation(WebDriver wd) {
